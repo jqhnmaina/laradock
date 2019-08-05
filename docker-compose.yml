@@ -130,7 +130,7 @@ services:
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
       ports:
-        - "${WORKSPACE_SSH_PORT}:22"
+        - 22
       tty: true
       environment:
         - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
@@ -370,7 +370,7 @@ services:
         - ${DATA_PATH_HOST}/mysql:/var/lib/mysql
         - ${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
       ports:
-        - "${MYSQL_PORT}:3306"
+        - 3306
       networks:
         - backend
 
@@ -513,7 +513,7 @@ services:
       volumes:
         - ${DATA_PATH_HOST}/redis:/data
       ports:
-        - "${REDIS_PORT}:6379"
+        - 6379
       networks:
         - backend
 
