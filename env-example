@@ -4,8 +4,10 @@
 
 ### Paths #################################################
 
+MAIN_DOMAIN=project_name.localhost
+
 # Point to the path of your applications code on your host
-APP_CODE_PATH_HOST=../
+APP_CODE_PATH_HOST=../data
 
 # Point to where the `APP_CODE_PATH_HOST` should be in the container
 APP_CODE_PATH_CONTAINER=/var/www
@@ -14,7 +16,7 @@ APP_CODE_PATH_CONTAINER=/var/www
 APP_CODE_CONTAINER_FLAG=:cached
 
 # Choose storage path on your machine. For all storage systems
-DATA_PATH_HOST=~/.laradock/data
+DATA_PATH_HOST=../data
 
 ### Drivers ################################################
 
@@ -38,7 +40,7 @@ COMPOSE_PROJECT_NAME=laradock
 ### PHP Version ###########################################
 
 # Select a PHP version of the Workspace and PHP-FPM containers (Does not apply to HHVM). Accepted values: 7.3 - 7.2 - 7.1 - 7.0 - 5.6
-PHP_VERSION=7.2
+PHP_VERSION=7.3
 
 ### Phalcon Version ###########################################
 
@@ -216,7 +218,7 @@ PHP_WORKER_PGID=1000
 
 NGINX_HOST_HTTP_PORT=80
 NGINX_HOST_HTTPS_PORT=443
-NGINX_HOST_LOG_PATH=./logs/nginx/
+NGINX_HOST_LOG_PATH=../logs/nginx/
 NGINX_SITES_PATH=./nginx/sites/
 NGINX_PHP_UPSTREAM_CONTAINER=php-fpm
 NGINX_PHP_UPSTREAM_PORT=9000
@@ -239,7 +241,7 @@ APACHE_DOCUMENT_ROOT=/var/www/
 
 ### MYSQL #################################################
 
-MYSQL_VERSION=latest
+MYSQL_VERSION=5.7
 MYSQL_DATABASE=default
 MYSQL_USER=default
 MYSQL_PASSWORD=secret
