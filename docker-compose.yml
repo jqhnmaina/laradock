@@ -2,7 +2,8 @@ version: '3'
 
 networks:
   frontend:
-    driver: ${NETWORKS_DRIVER}
+    external:
+      name: nginx-proxy_default
   backend:
     driver: ${NETWORKS_DRIVER}
 
@@ -51,7 +52,7 @@ volumes:
 services:
 
 ### Workspace Utilities ##################################
-    workspace:
+    cli:
       build:
         context: ./workspace
         args:
@@ -205,7 +206,7 @@ services:
         - DOCKER_HOST=tcp://docker-in-docker:2375
         - FAKETIME=${PHP_FPM_FAKETIME}
       depends_on:
-        - workspace
+        - cli
       networks:
         - backend
       links:
@@ -237,7 +238,7 @@ services:
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
         - ./php-worker/supervisord.d:/etc/supervisord.d
       depends_on:
-        - workspace
+        - cli
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
       networks:
@@ -257,7 +258,7 @@ services:
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
         - ./laravel-horizon/supervisord.d:/etc/supervisord.d
       depends_on:
-        - workspace
+        - cli
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
       networks:
@@ -329,7 +330,7 @@ services:
       expose:
         - "9000"
       depends_on:
-        - workspace
+        - cli
       networks:
         - frontend
         - backend
@@ -535,7 +536,7 @@ services:
     aerospike:
       build: ./aerospike
       volumes:
-        - workspace
+        - cli
         - ${DATA_PATH_HOST}/aerospike:/opt/aerospike/data
       ports:
         - "${AEROSPIKE_SERVICE_PORT}:3000"
@@ -806,7 +807,7 @@ services:
         - BACKEND_PORT=${VARNISH_BACKEND_PORT}
         - VARNISH_SERVER=${VARNISH_PROXY1_SERVER}
       links:
-        - workspace
+        - cli
       networks:
         - frontend
 
@@ -823,7 +824,7 @@ services:
         - BACKEND_PORT=${VARNISH_BACKEND_PORT}
         - VARNISH_SERVER=${VARNISH_PROXY2_SERVER}
       links:
-        - workspace
+        - cli
       networks:
         - frontend
 
@@ -1047,7 +1048,7 @@ services:
       volumes:
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
       depends_on:
-        - workspace
+        - cli
       tty: true
 
 ### Portainer ################################################

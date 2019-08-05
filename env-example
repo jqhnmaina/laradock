@@ -7,7 +7,7 @@
 MAIN_DOMAIN=project_name.localhost
 
 # Point to the path of your applications code on your host
-APP_CODE_PATH_HOST=../data
+APP_CODE_PATH_HOST=../code
 
 # Point to where the `APP_CODE_PATH_HOST` should be in the container
 APP_CODE_PATH_CONTAINER=/var/www
